@@ -6,6 +6,7 @@ target 'RealTimeDisplay' do
   use_frameworks!
 
   pod 'Starscream', '~> 3.0.2'
+  pod 'ObjectMapper', '~> 3.4'
 
   target 'RealTimeDisplayTests' do
     inherit! :search_paths
