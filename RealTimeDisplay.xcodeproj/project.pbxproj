@@ -17,6 +17,12 @@
 		1547B6B62203308300F78A02 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6B52203308300F78A02 /* Ticket.swift */; };
 		1547B6B72203308300F78A02 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6B52203308300F78A02 /* Ticket.swift */; };
 		1547B6B82203308300F78A02 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6B52203308300F78A02 /* Ticket.swift */; };
+		1547B6BB220342C600F78A02 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */; };
+		1547B6BC220342C900F78A02 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */; };
+		1547B6BD220342CA00F78A02 /* LoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */; };
+		1547B6BF22034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
+		1547B6C022034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
+		1547B6C122034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
 		AD4BE65C9289C69CDDC2DB87 /* Pods_RealTimeDisplayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD77C55F8ED3E995583BB1B /* Pods_RealTimeDisplayUITests.framework */; };
 		DF56E966B556332317B54FCE /* Pods_RealTimeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C100CA8BBEDF8F2573544A4 /* Pods_RealTimeDisplay.framework */; };
 		FDD5FA09AE4F11B7874852C8 /* Pods_RealTimeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C7CDE64F88F2F90F56CC92 /* Pods_RealTimeDisplayTests.framework */; };
@@ -54,6 +60,8 @@
 		1547B6A622030B4200F78A02 /* RealTimeDisplayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeDisplayUITests.swift; sourceTree = "<group>"; };
 		1547B6A822030B4200F78A02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1547B6B52203308300F78A02 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
+		1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
+		1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C100CA8BBEDF8F2573544A4 /* Pods_RealTimeDisplay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD77C55F8ED3E995583BB1B /* Pods_RealTimeDisplayUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplayUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C7CDE64F88F2F90F56CC92 /* Pods_RealTimeDisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +126,7 @@
 		1547B68522030B3E00F78A02 /* RealTimeDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				1547B6B9220342B000F78A02 /* Controller */,
 				1547B6B42203303C00F78A02 /* Model */,
 				1547B68622030B3E00F78A02 /* AppDelegate.swift */,
 				1547B68822030B3E00F78A02 /* ViewController.swift */,
@@ -125,6 +134,7 @@
 				1547B68D22030B4200F78A02 /* Assets.xcassets */,
 				1547B68F22030B4200F78A02 /* LaunchScreen.storyboard */,
 				1547B69222030B4200F78A02 /* Info.plist */,
+				1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */,
 			);
 			path = RealTimeDisplay;
 			sourceTree = "<group>";
@@ -153,6 +163,14 @@
 				1547B6B52203308300F78A02 /* Ticket.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		1547B6B9220342B000F78A02 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		5ACCF820C7A35DF0B9D2AC1E /* Frameworks */ = {
@@ -287,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B69122030B4200F78A02 /* LaunchScreen.storyboard in Resources */,
+				1547B6BF22034AEB00F78A02 /* GoogleService-Info.plist in Resources */,
 				1547B68E22030B4200F78A02 /* Assets.xcassets in Resources */,
 				1547B68C22030B3E00F78A02 /* Main.storyboard in Resources */,
 			);
@@ -296,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1547B6C022034AEB00F78A02 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1547B6C122034AEB00F78A02 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +417,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1547B6BB220342C600F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B68922030B3E00F78A02 /* ViewController.swift in Sources */,
 				1547B6B62203308300F78A02 /* Ticket.swift in Sources */,
 				1547B68722030B3E00F78A02 /* AppDelegate.swift in Sources */,
@@ -407,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B69C22030B4200F78A02 /* RealTimeDisplayTests.swift in Sources */,
+				1547B6BC220342C900F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B6B72203308300F78A02 /* Ticket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B6A722030B4200F78A02 /* RealTimeDisplayUITests.swift in Sources */,
+				1547B6BD220342CA00F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B6B82203308300F78A02 /* Ticket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,7 +607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kyrptoLabs.com.RealTimeDisplay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aadi007.com.RealTimeDisplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -602,7 +626,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kyrptoLabs.com.RealTimeDisplay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aadi007.com.RealTimeDisplay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
