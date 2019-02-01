@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1547B68722030B3E00F78A02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68622030B3E00F78A02 /* AppDelegate.swift */; };
-		1547B68922030B3E00F78A02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* ViewController.swift */; };
+		1547B68922030B3E00F78A02 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */; };
 		1547B68C22030B3E00F78A02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1547B68A22030B3E00F78A02 /* Main.storyboard */; };
 		1547B68E22030B4200F78A02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1547B68D22030B4200F78A02 /* Assets.xcassets */; };
 		1547B69122030B4200F78A02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1547B68F22030B4200F78A02 /* LaunchScreen.storyboard */; };
@@ -23,6 +23,8 @@
 		1547B6BF22034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
 		1547B6C022034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
 		1547B6C122034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
+		1547B6C622035D0900F78A02 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */; };
+		1547B6C722035D0900F78A02 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */; };
 		AD4BE65C9289C69CDDC2DB87 /* Pods_RealTimeDisplayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD77C55F8ED3E995583BB1B /* Pods_RealTimeDisplayUITests.framework */; };
 		DF56E966B556332317B54FCE /* Pods_RealTimeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C100CA8BBEDF8F2573544A4 /* Pods_RealTimeDisplay.framework */; };
 		FDD5FA09AE4F11B7874852C8 /* Pods_RealTimeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C7CDE64F88F2F90F56CC92 /* Pods_RealTimeDisplayTests.framework */; };
@@ -48,7 +50,7 @@
 /* Begin PBXFileReference section */
 		1547B68322030B3E00F78A02 /* RealTimeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealTimeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1547B68622030B3E00F78A02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1547B68822030B3E00F78A02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDisplayViewController.swift; sourceTree = "<group>"; };
 		1547B68B22030B3E00F78A02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1547B68D22030B4200F78A02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1547B69022030B4200F78A02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -129,7 +131,6 @@
 				1547B6B9220342B000F78A02 /* Controller */,
 				1547B6B42203303C00F78A02 /* Model */,
 				1547B68622030B3E00F78A02 /* AppDelegate.swift */,
-				1547B68822030B3E00F78A02 /* ViewController.swift */,
 				1547B68A22030B3E00F78A02 /* Main.storyboard */,
 				1547B68D22030B4200F78A02 /* Assets.xcassets */,
 				1547B68F22030B4200F78A02 /* LaunchScreen.storyboard */,
@@ -169,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */,
+				1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -418,7 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B6BB220342C600F78A02 /* LoginSignUpViewController.swift in Sources */,
-				1547B68922030B3E00F78A02 /* ViewController.swift in Sources */,
+				1547B68922030B3E00F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6B62203308300F78A02 /* Ticket.swift in Sources */,
 				1547B68722030B3E00F78A02 /* AppDelegate.swift in Sources */,
 			);
@@ -429,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B69C22030B4200F78A02 /* RealTimeDisplayTests.swift in Sources */,
+				1547B6C722035D0900F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6BC220342C900F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B6B72203308300F78A02 /* Ticket.swift in Sources */,
 			);
@@ -439,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1547B6A722030B4200F78A02 /* RealTimeDisplayUITests.swift in Sources */,
+				1547B6C622035D0900F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6BD220342CA00F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B6B82203308300F78A02 /* Ticket.swift in Sources */,
 			);

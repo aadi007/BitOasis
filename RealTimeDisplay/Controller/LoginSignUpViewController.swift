@@ -15,30 +15,19 @@ class LoginSignUpViewController: UIViewController {
     @IBOutlet weak var passWordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     var handle: AuthStateDidChangeListenerHandle?
-    var isloginAction = false
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         handle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
             print(auth)
             guard let `self` = self else { return }
-            if user == nil {
-                //show sign up
-                self.loginButton.setTitle("Sign Up", for: .normal)
-            } else {
-                //show login page
-                self.isloginAction = true
-                self.titleLabel.text = "Please login to check the poloniex data inside app"
+            if user != nil {
                 self.navigateToDataPage()
             }
+            Auth.auth().removeStateDidChangeListener(self.handle!)
         }
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
     func validatedFormDetails() -> Bool {
@@ -57,33 +46,45 @@ class LoginSignUpViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        //check if the state is login or sign up
-        if !isloginAction {
-            //sign up api call
-            if validatedFormDetails() {
-                Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (authResult, error) in
-                    if error != nil {
-                        let alert = UIAlertController(title: "Error", message: error.debugDescription, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                        return
-                    } else if let user = authResult?.user {
-                        UserDefaults.standard.set(user.uid, forKey: "loggedInUserId")
-                        //navigate to next page where data is display
-                        self.navigateToDataPage()
+        //sign up api call
+        if validatedFormDetails() {
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (authResult, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    if error?._code == 17007 {
+                        alert.title = "Alert"
+                        alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { (action) in
+                            Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passWordTextField.text!, completion: {[weak self] (auth, error) in
+                                guard let `self` = self else { return }
+                                if let user = auth?.user {
+                                    UserDefaults.standard.set(user.uid, forKey: "loggedInUserId")
+                                    //navigate to next page where data is display
+                                    self.navigateToDataPage()
+                                } else {
+                                    print("error in \(String(describing: error?.localizedDescription))")
+                                }
+                            })
+                        }))
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     } else {
-                        //this condition should not arise
-                        print("user object is not present")
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     }
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                } else if let user = authResult?.user {
+                    UserDefaults.standard.set(user.uid, forKey: "loggedInUserId")
+                    //navigate to next page where data is display
+                    self.navigateToDataPage()
+                } else {
+                    //this condition should not arise
+                    print("user object is not present")
                 }
             }
-        } else {
-            //login api call
         }
     }
     
     func navigateToDataPage() {
-        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+        let viewcontroller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DataDisplayViewController")
         self.navigationController?.pushViewController(viewcontroller, animated: true)
     }
 }
