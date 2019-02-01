@@ -38,12 +38,24 @@ final class DataDisplayViewModel: NSObject {
     }
     func updateGraphData() {
         var lineChartEntry = [ChartDataEntry]()
+        var colors = [UIColor]()
+        if thresholdValue == -1 {
+            colors = [UIColor.blue]
+        }
         for tickerData in tickerDataList {
             let value = ChartDataEntry(x: tickerData.currencyPairId, y: tickerData.lastTradePrice)
             lineChartEntry.append(value)
+            if thresholdValue != -1 {
+                if tickerData.lastTradePrice >= thresholdValue {
+                    colors.append(UIColor.green)
+                } else {
+                    colors.append(UIColor.red)
+                }
+            }
         }
         let line1 = LineChartDataSet(values: lineChartEntry, label: "Last trade price")
         line1.colors = [UIColor.blue]
+        line1.circleColors = colors
         let data = LineChartData()
         data.addDataSet(line1)
         delegate?.updateGraph(lineChartData: data, descriptionText: "Exchange Trade Graph")

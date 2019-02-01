@@ -11,7 +11,7 @@ import Starscream
 import FirebaseAuth
 import Charts
 
-final class DataDisplayViewController: UIViewController {
+final class DataDisplayViewController: UIViewController, UITextFieldDelegate {
     var viewModel: DataDisplayViewModel!
     @IBOutlet weak var textfield: UITextField!
     @IBOutlet weak var lineGraphView: LineChartView!
@@ -19,11 +19,23 @@ final class DataDisplayViewController: UIViewController {
         super.viewDidLoad()
         viewModel = DataDisplayViewModel(delegate: self)
         viewModel.connectSocket()
+        textfield.delegate = self
         configureNavigationBar()
     }
     func configureNavigationBar() {
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(signOutButtonTapped))
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            if touch.view == self.view {
+                self.textfield.resignFirstResponder()
+            }
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     @objc func signOutButtonTapped() {
         let alert = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -53,6 +65,7 @@ final class DataDisplayViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        textfield.resignFirstResponder()
     }
 }
 
