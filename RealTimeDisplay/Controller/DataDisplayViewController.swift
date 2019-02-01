@@ -9,19 +9,34 @@
 import UIKit
 import Starscream
 import FirebaseAuth
+import Charts
 
-class DataDisplayViewController: UIViewController {
-    var socket: WebSocket?
+final class DataDisplayViewController: UIViewController, UITextFieldDelegate {
+    var viewModel: DataDisplayViewModel!
+    @IBOutlet weak var textfield: UITextField!
+    @IBOutlet weak var lineGraphView: LineChartView!
+    @IBOutlet weak var barChartView: BarChartView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        socket = WebSocket(url: URL(string: "wss://api2.poloniex.com")!)
-        socket?.delegate = self
-        socket?.connect()
+        viewModel = DataDisplayViewModel(delegate: self)
+        viewModel.connectSocket()
+        textfield.delegate = self
         configureNavigationBar()
     }
     func configureNavigationBar() {
         self.navigationItem.hidesBackButton = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(signOutButtonTapped))
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            if touch.view == self.view {
+                self.textfield.resignFirstResponder()
+            }
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     @objc func signOutButtonTapped() {
         let alert = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -30,7 +45,7 @@ class DataDisplayViewController: UIViewController {
                 try Auth.auth().signOut()
                 UserDefaults.standard.removeObject(forKey: "loggedInUserId")
                 self.navigationController?.popViewController(animated: true)
-                self.socket?.disconnect()
+                self.viewModel.disconnectSocket()
             } catch (let error) {
                 print("eror to be displayed \(String(describing: error.localizedDescription))")
             }
@@ -38,33 +53,41 @@ class DataDisplayViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-}
-
-extension DataDisplayViewController: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("connected")
-        var command = [String: Any]()
-        command["command"] = "subscribe"
-        command["channel"] = 1002
-        do {
-            let input = try JSONSerialization.data(withJSONObject: command, options: .prettyPrinted)
-            socket.write(data: input)
-        } catch {
-            return
+    @IBAction func highlightActionButtonTapped(_ sender: UIButton) {
+        if let input = textfield.text, !input.isEmpty, let value = Double(input) {
+            if value <= 0 {
+                viewModel.thresholdValue = -1
+            } else {
+                viewModel.thresholdValue = value
+            }
+        } else {
+            viewModel.thresholdValue = -1
+            let alert = UIAlertController(title: "Alert", message: "Please enter data", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        textfield.resignFirstResponder()
+    }
+    @IBAction func switchvalueChanged(_ sender: Any) {
+        if viewModel.graphType == .Line {
+            viewModel.graphType = .Bar
+            barChartView.isHidden = false
+            lineGraphView.isHidden = true
+        } else {
+            viewModel.graphType = .Line
+            barChartView.isHidden = true
+            lineGraphView.isHidden = false
         }
     }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("disconnected")
+}
+
+extension DataDisplayViewController: DataDisplayViewModelDelegate {
+    func updateGraph(lineChartData: LineChartData, descriptionText: String) {
+        lineGraphView.data = lineChartData
+        lineGraphView.chartDescription?.text = descriptionText
     }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("did receive Message \(text)")
+    func updateBarGraph(barChartData: BarChartData, descriptionText: String) {
+        barChartView.data = barChartData
+        barChartView.chartDescription?.text = descriptionText
     }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("did reveive data")
-    }
-    
-    
 }
