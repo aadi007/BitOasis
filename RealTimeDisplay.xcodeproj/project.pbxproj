@@ -25,6 +25,9 @@
 		1547B6C122034AEB00F78A02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */; };
 		1547B6C622035D0900F78A02 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */; };
 		1547B6C722035D0900F78A02 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */; };
+		1573864D2204485B000F3317 /* DataDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573864C2204485B000F3317 /* DataDisplayViewModel.swift */; };
+		1573864E2204485B000F3317 /* DataDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573864C2204485B000F3317 /* DataDisplayViewModel.swift */; };
+		1573864F2204485B000F3317 /* DataDisplayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1573864C2204485B000F3317 /* DataDisplayViewModel.swift */; };
 		AD4BE65C9289C69CDDC2DB87 /* Pods_RealTimeDisplayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD77C55F8ED3E995583BB1B /* Pods_RealTimeDisplayUITests.framework */; };
 		DF56E966B556332317B54FCE /* Pods_RealTimeDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C100CA8BBEDF8F2573544A4 /* Pods_RealTimeDisplay.framework */; };
 		FDD5FA09AE4F11B7874852C8 /* Pods_RealTimeDisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C7CDE64F88F2F90F56CC92 /* Pods_RealTimeDisplayTests.framework */; };
@@ -64,6 +67,7 @@
 		1547B6B52203308300F78A02 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		1547B6BA220342C600F78A02 /* LoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpViewController.swift; sourceTree = "<group>"; };
 		1547B6BE22034AEB00F78A02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1573864C2204485B000F3317 /* DataDisplayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDisplayViewModel.swift; sourceTree = "<group>"; };
 		2C100CA8BBEDF8F2573544A4 /* Pods_RealTimeDisplay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD77C55F8ED3E995583BB1B /* Pods_RealTimeDisplayUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplayUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61C7CDE64F88F2F90F56CC92 /* Pods_RealTimeDisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealTimeDisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +132,7 @@
 		1547B68522030B3E00F78A02 /* RealTimeDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				1573864B22044840000F3317 /* ViewModel */,
 				1547B6B9220342B000F78A02 /* Controller */,
 				1547B6B42203303C00F78A02 /* Model */,
 				1547B68622030B3E00F78A02 /* AppDelegate.swift */,
@@ -173,6 +178,14 @@
 				1547B68822030B3E00F78A02 /* DataDisplayViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		1573864B22044840000F3317 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1573864C2204485B000F3317 /* DataDisplayViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		5ACCF820C7A35DF0B9D2AC1E /* Frameworks */ = {
@@ -393,17 +406,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RealTimeDisplay/Pods-RealTimeDisplay-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -422,6 +435,7 @@
 				1547B6BB220342C600F78A02 /* LoginSignUpViewController.swift in Sources */,
 				1547B68922030B3E00F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6B62203308300F78A02 /* Ticket.swift in Sources */,
+				1573864D2204485B000F3317 /* DataDisplayViewModel.swift in Sources */,
 				1547B68722030B3E00F78A02 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +447,7 @@
 				1547B69C22030B4200F78A02 /* RealTimeDisplayTests.swift in Sources */,
 				1547B6C722035D0900F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6BC220342C900F78A02 /* LoginSignUpViewController.swift in Sources */,
+				1573864E2204485B000F3317 /* DataDisplayViewModel.swift in Sources */,
 				1547B6B72203308300F78A02 /* Ticket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +459,7 @@
 				1547B6A722030B4200F78A02 /* RealTimeDisplayUITests.swift in Sources */,
 				1547B6C622035D0900F78A02 /* DataDisplayViewController.swift in Sources */,
 				1547B6BD220342CA00F78A02 /* LoginSignUpViewController.swift in Sources */,
+				1573864F2204485B000F3317 /* DataDisplayViewModel.swift in Sources */,
 				1547B6B82203308300F78A02 /* Ticket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,14 +9,16 @@
 import UIKit
 import Starscream
 import FirebaseAuth
+import Charts
 
-class DataDisplayViewController: UIViewController {
-    var socket: WebSocket?
+final class DataDisplayViewController: UIViewController {
+    var viewModel: DataDisplayViewModel!
+    @IBOutlet weak var textfield: UITextField!
+    @IBOutlet weak var lineGraphView: LineChartView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        socket = WebSocket(url: URL(string: "wss://api2.poloniex.com")!)
-        socket?.delegate = self
-        socket?.connect()
+        viewModel = DataDisplayViewModel(delegate: self)
+        viewModel.connectSocket()
         configureNavigationBar()
     }
     func configureNavigationBar() {
@@ -30,7 +32,7 @@ class DataDisplayViewController: UIViewController {
                 try Auth.auth().signOut()
                 UserDefaults.standard.removeObject(forKey: "loggedInUserId")
                 self.navigationController?.popViewController(animated: true)
-                self.socket?.disconnect()
+                self.viewModel.disconnectSocket()
             } catch (let error) {
                 print("eror to be displayed \(String(describing: error.localizedDescription))")
             }
@@ -38,33 +40,20 @@ class DataDisplayViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-}
-
-extension DataDisplayViewController: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("connected")
-        var command = [String: Any]()
-        command["command"] = "subscribe"
-        command["channel"] = 1002
-        do {
-            let input = try JSONSerialization.data(withJSONObject: command, options: .prettyPrinted)
-            socket.write(data: input)
-        } catch {
-            return
+    @IBAction func highlightActionButtonTapped(_ sender: UIButton) {
+        if let input = textfield.text, !input.isEmpty, let value = Double(input) {
+            
+        } else {
+            let alert = UIAlertController(title: "Alert", message: "Please enter data", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("disconnected")
+}
+
+extension DataDisplayViewController: DataDisplayViewModelDelegate {
+    func updateGraph(lineChartData: LineChartData, descriptionText: String) {
+        lineGraphView.data = lineChartData
+        lineGraphView.chartDescription?.text = descriptionText
     }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("did receive Message \(text)")
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("did reveive data")
-    }
-    
-    
 }
