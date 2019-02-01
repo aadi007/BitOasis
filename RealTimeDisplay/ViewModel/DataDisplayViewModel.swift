@@ -55,6 +55,7 @@ final class DataDisplayViewModel: NSObject {
         }
         let line1 = LineChartDataSet(values: lineChartEntry, label: "Last trade price")
         line1.colors = [UIColor.blue]
+        line1.mode = LineChartDataSet.Mode.horizontalBezier
         line1.circleColors = colors
         let data = LineChartData()
         data.addDataSet(line1)
