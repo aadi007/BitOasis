@@ -21,23 +21,18 @@ class DataDisplayViewController: UIViewController {
     }
     func configureNavigationBar() {
         self.navigationItem.hidesBackButton = true
-        let button = UIButton(type: .custom)
-        button.setTitle("Sign out", for: .normal)
-        button.target(forAction: #selector(deleteUserButtonTapped), withSender: self)
-        self.navigationItem.setRightBarButton(UIBarButtonItem(customView: button), animated: true)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .done, target: self, action: #selector(signOutButtonTapped))
     }
-    @objc func SignOutButtonTapped() {
+    @objc func signOutButtonTapped() {
         let alert = UIAlertController(title: "Are you sure?", message: "", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { (action) in
-            let user = Auth.auth().currentUser
-            user?.delete { error in
-                if let error = error {
-                    // An error happened.
-                    print("error occurred \(error.localizedDescription)")
-                } else {
-                    // Account deleted.
-                    self.navigationController?.popViewController(animated: true)
-                }
+            do {
+                try Auth.auth().signOut()
+                UserDefaults.standard.removeObject(forKey: "loggedInUserId")
+                self.navigationController?.popViewController(animated: true)
+                self.socket?.disconnect()
+            } catch (let error) {
+                print("eror to be displayed \(String(describing: error.localizedDescription))")
             }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
