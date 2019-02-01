@@ -18,6 +18,7 @@ class LoginSignUpViewController: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Exchange Trade Info"
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
