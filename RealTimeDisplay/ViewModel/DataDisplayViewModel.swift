@@ -28,7 +28,7 @@ final class DataDisplayViewModel: NSObject {
     private var dataOffset = 10
     private var dataCurrentCount = 0
     private var tickerDataList = [TickerData]()
-    private var graphType = GraphType.Bar
+    var graphType = GraphType.Line
     var thresholdValue: Double = -1
     init(delegate: DataDisplayViewModelDelegate?) {
         self.delegate = delegate

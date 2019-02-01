@@ -68,6 +68,17 @@ final class DataDisplayViewController: UIViewController, UITextFieldDelegate {
         }
         textfield.resignFirstResponder()
     }
+    @IBAction func switchvalueChanged(_ sender: Any) {
+        if viewModel.graphType == .Line {
+            viewModel.graphType = .Bar
+            barChartView.isHidden = false
+            lineGraphView.isHidden = true
+        } else {
+            viewModel.graphType = .Line
+            barChartView.isHidden = true
+            lineGraphView.isHidden = false
+        }
+    }
 }
 
 extension DataDisplayViewController: DataDisplayViewModelDelegate {
