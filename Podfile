@@ -7,6 +7,8 @@ target 'RealTimeDisplay' do
 
   pod 'Starscream', '~> 3.0.2'
   pod 'ObjectMapper', '~> 3.4'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
 
   target 'RealTimeDisplayTests' do
     inherit! :search_paths
