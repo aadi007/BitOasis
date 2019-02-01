@@ -22,8 +22,10 @@ final class DataDisplayViewModel: NSObject {
     private var dataOffset = 10
     private var dataCurrentCount = 0
     private var tickerDataList = [TickerData]()
+    var thresholdValue: Double = -1
     init(delegate: DataDisplayViewModelDelegate?) {
         self.delegate = delegate
+        dataCurrentCount = 0
     }
     func connectSocket() {
         socket = WebSocket(url: URL(string: "wss://api2.poloniex.com")!)
@@ -40,11 +42,11 @@ final class DataDisplayViewModel: NSObject {
             let value = ChartDataEntry(x: tickerData.currencyPairId, y: tickerData.lastTradePrice)
             lineChartEntry.append(value)
         }
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "Number")
+        let line1 = LineChartDataSet(values: lineChartEntry, label: "Last trade price")
         line1.colors = [UIColor.blue]
         let data = LineChartData()
         data.addDataSet(line1)
-        delegate?.updateGraph(lineChartData: data, descriptionText: "My new graph")
+        delegate?.updateGraph(lineChartData: data, descriptionText: "Exchange Trade Graph")
     }
 }
 extension DataDisplayViewModel: WebSocketDelegate {
@@ -66,21 +68,22 @@ extension DataDisplayViewModel: WebSocketDelegate {
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        if dataCurrentCount == dataOffset {
-            //disconnect for now
-            disconnectSocket()
-        }
         if listenData {
             if let data = text.data(using: String.Encoding.utf8) {
                 do {
                     let anyObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
                     if let responseArray = anyObject as? [Any], responseArray.count > 2 {
                         //parse the array
+                        dataCurrentCount += 1
                         if let tickerData = Ticker(input: responseArray).tickerData {
                             tickerDataList.append(tickerData)
+                            if tickerDataList.count > dataOffset {
+                                tickerDataList.removeFirst()
+                            }
                         }
-                        updateGraphData()
-                        dataCurrentCount += 1
+                        if tickerDataList.count % dataOffset == 0 {
+                            updateGraphData()
+                        }
                 } else {
                         print("No proper response")
                     }

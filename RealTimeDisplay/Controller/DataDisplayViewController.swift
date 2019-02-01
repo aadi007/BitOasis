@@ -42,8 +42,13 @@ final class DataDisplayViewController: UIViewController {
     }
     @IBAction func highlightActionButtonTapped(_ sender: UIButton) {
         if let input = textfield.text, !input.isEmpty, let value = Double(input) {
-            
+            if value <= 0 {
+                viewModel.thresholdValue = -1
+            } else {
+                viewModel.thresholdValue = value
+            }
         } else {
+            viewModel.thresholdValue = -1
             let alert = UIAlertController(title: "Alert", message: "Please enter data", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
