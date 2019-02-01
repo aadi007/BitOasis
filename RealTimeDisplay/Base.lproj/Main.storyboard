@@ -106,21 +106,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wai-uP-o6N">
-                                <rect key="frame" x="297" y="50" width="68" height="30"/>
+                                <rect key="frame" x="290" y="50" width="75" height="30"/>
                                 <color key="backgroundColor" red="0.38431372549999998" green="0.33333333329999998" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="d9U-1X-2k6"/>
                                     <constraint firstAttribute="height" constant="30" id="tCe-aV-Ojb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Highlight">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="highlightActionButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r4z-b0-Gqb"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number for indicator" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaR-gf-EqM">
-                                <rect key="frame" x="10" y="50" width="277" height="30"/>
+                                <rect key="frame" x="10" y="50" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -132,13 +138,21 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="557"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B50-qk-TAp" customClass="BarChartView" customModule="Charts">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="557"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="B50-qk-TAp" secondAttribute="bottom" id="4GV-mt-lnn"/>
                                     <constraint firstItem="siF-yK-k0v" firstAttribute="leading" secondItem="Hh2-KM-xrX" secondAttribute="leading" id="54m-0k-o4c"/>
                                     <constraint firstAttribute="trailing" secondItem="siF-yK-k0v" secondAttribute="trailing" id="CJZ-Lb-KPx"/>
                                     <constraint firstItem="siF-yK-k0v" firstAttribute="top" secondItem="Hh2-KM-xrX" secondAttribute="top" id="MEZ-BN-SUW"/>
+                                    <constraint firstItem="B50-qk-TAp" firstAttribute="top" secondItem="Hh2-KM-xrX" secondAttribute="top" id="NZ1-4C-LnQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="B50-qk-TAp" secondAttribute="trailing" id="PDr-3n-J79"/>
                                     <constraint firstAttribute="bottom" secondItem="siF-yK-k0v" secondAttribute="bottom" id="ZDS-kM-ToE"/>
+                                    <constraint firstItem="B50-qk-TAp" firstAttribute="leading" secondItem="Hh2-KM-xrX" secondAttribute="leading" id="iYv-Fg-NjJ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -158,6 +172,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="barChartView" destination="B50-qk-TAp" id="65P-I7-Ba2"/>
                         <outlet property="lineGraphView" destination="siF-yK-k0v" id="D4n-0R-b6M"/>
                         <outlet property="textfield" destination="aaR-gf-EqM" id="zmN-6g-RU1"/>
                     </connections>

@@ -15,6 +15,7 @@ final class DataDisplayViewController: UIViewController, UITextFieldDelegate {
     var viewModel: DataDisplayViewModel!
     @IBOutlet weak var textfield: UITextField!
     @IBOutlet weak var lineGraphView: LineChartView!
+    @IBOutlet weak var barChartView: BarChartView!
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = DataDisplayViewModel(delegate: self)
@@ -73,5 +74,9 @@ extension DataDisplayViewController: DataDisplayViewModelDelegate {
     func updateGraph(lineChartData: LineChartData, descriptionText: String) {
         lineGraphView.data = lineChartData
         lineGraphView.chartDescription?.text = descriptionText
+    }
+    func updateBarGraph(barChartData: BarChartData, descriptionText: String) {
+        barChartView.data = barChartData
+        barChartView.chartDescription?.text = descriptionText
     }
 }

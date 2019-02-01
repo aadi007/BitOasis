@@ -12,6 +12,12 @@ import Charts
 
 protocol DataDisplayViewModelDelegate: class {
     func updateGraph(lineChartData: LineChartData, descriptionText: String)
+    func updateBarGraph(barChartData: BarChartData, descriptionText: String)
+}
+
+enum GraphType {
+    case Line
+    case Bar
 }
 
 final class DataDisplayViewModel: NSObject {
@@ -22,6 +28,7 @@ final class DataDisplayViewModel: NSObject {
     private var dataOffset = 10
     private var dataCurrentCount = 0
     private var tickerDataList = [TickerData]()
+    private var graphType = GraphType.Bar
     var thresholdValue: Double = -1
     init(delegate: DataDisplayViewModelDelegate?) {
         self.delegate = delegate
@@ -37,29 +44,53 @@ final class DataDisplayViewModel: NSObject {
         socket?.disconnect()
     }
     func updateGraphData() {
-        var lineChartEntry = [ChartDataEntry]()
-        var colors = [UIColor]()
-        if thresholdValue == -1 {
-            colors = [UIColor.blue]
-        }
-        for tickerData in tickerDataList {
-            let value = ChartDataEntry(x: tickerData.currencyPairId, y: tickerData.lastTradePrice)
-            lineChartEntry.append(value)
-            if thresholdValue != -1 {
-                if tickerData.lastTradePrice >= thresholdValue {
-                    colors.append(UIColor.green)
-                } else {
-                    colors.append(UIColor.red)
+        if graphType == .Line {
+            var lineChartEntry = [ChartDataEntry]()
+            var colors = [UIColor]()
+            if thresholdValue == -1 {
+                colors = [UIColor.blue]
+            }
+            for tickerData in tickerDataList {
+                let value = ChartDataEntry(x: tickerData.currencyPairId, y: tickerData.lastTradePrice)
+                lineChartEntry.append(value)
+                if thresholdValue != -1 {
+                    if tickerData.lastTradePrice >= thresholdValue {
+                        colors.append(UIColor.green)
+                    } else {
+                        colors.append(UIColor.red)
+                    }
                 }
             }
+            let line1 = LineChartDataSet(values: lineChartEntry, label: "Last trade price")
+            line1.colors = [UIColor.blue]
+            line1.mode = LineChartDataSet.Mode.horizontalBezier
+            line1.circleColors = colors
+            let data = LineChartData()
+            data.addDataSet(line1)
+            delegate?.updateGraph(lineChartData: data, descriptionText: "Exchange Trade Graph")
+        } else {
+            //bar graph data
+            var barCharDataEntryList = [BarChartDataEntry]()
+            var colors = [UIColor]()
+            if thresholdValue == -1 {
+                colors = [UIColor.blue]
+            }
+            for tickerData in tickerDataList {
+                let value = BarChartDataEntry(x: tickerData.currencyPairId, y: tickerData.lastTradePrice)
+                barCharDataEntryList.append(value)
+                if thresholdValue != -1 {
+                    if tickerData.lastTradePrice >= thresholdValue {
+                        colors.append(UIColor.green)
+                    } else {
+                        colors.append(UIColor.red)
+                    }
+                }
+            }
+            let dataSet = BarChartDataSet(values: barCharDataEntryList, label: "Last trade price")
+            dataSet.colors = colors
+            let data = BarChartData(dataSets: [dataSet])
+            delegate?.updateBarGraph(barChartData: data, descriptionText: "Exchange Trade Graph")
         }
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "Last trade price")
-        line1.colors = [UIColor.blue]
-        line1.mode = LineChartDataSet.Mode.horizontalBezier
-        line1.circleColors = colors
-        let data = LineChartData()
-        data.addDataSet(line1)
-        delegate?.updateGraph(lineChartData: data, descriptionText: "Exchange Trade Graph")
     }
 }
 extension DataDisplayViewModel: WebSocketDelegate {
