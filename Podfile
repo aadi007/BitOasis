@@ -9,6 +9,7 @@ target 'RealTimeDisplay' do
   pod 'Charts'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'MBProgressHUD', '~> 1.1.0'
 
   target 'RealTimeDisplayTests' do
     inherit! :search_paths

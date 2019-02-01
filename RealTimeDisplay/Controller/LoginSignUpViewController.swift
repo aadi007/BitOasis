@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import MBProgressHUD
 
 class LoginSignUpViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,9 +21,10 @@ class LoginSignUpViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         handle = Auth.auth().addStateDidChangeListener { [weak self] (auth, user) in
-            print(auth)
             guard let `self` = self else { return }
+            MBProgressHUD.hide(for: self.view, animated: true)
             if user != nil {
                 self.navigateToDataPage()
             }
@@ -48,14 +50,19 @@ class LoginSignUpViewController: UIViewController {
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         //sign up api call
         if validatedFormDetails() {
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { (authResult, error) in
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            Auth.auth().createUser(withEmail: emailTextField.text!, password: passWordTextField.text!) { [weak self] (authResult, error) in
+                guard let `self` = self else { return }
+                MBProgressHUD.hide(for: self.view, animated: true)
                 if error != nil {
                     let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                     if error?._code == 17007 {
                         alert.title = "Alert"
                         alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { (action) in
+                            MBProgressHUD.showAdded(to: self.view, animated: true)
                             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passWordTextField.text!, completion: {[weak self] (auth, error) in
                                 guard let `self` = self else { return }
+                                MBProgressHUD.hide(for: self.view, animated: true)
                                 if let user = auth?.user {
                                     UserDefaults.standard.set(user.uid, forKey: "loggedInUserId")
                                     //navigate to next page where data is display
